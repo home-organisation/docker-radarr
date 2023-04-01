@@ -18,9 +18,9 @@ The extra parameters below come from this custom image :
 | RADARR_USER          |  admin                 | Username for web authentication                                                           |
 | RADARR_PASSWORD      |  ****                  | Password for web authentication                                                           |
 | RADARR_APIKEY        |  ****                  | Key for api authentication                                                                |
-| RADARR_ROOTPATH      |  /films/tvshows        | Local media directory                                                                     |
+| RADARR_ROOTPATH      |  /movies/tvshows       | Local media directory                                                                     |
 | RADARR_REMOTEPATH    |  /downloads/           | Remote Path Mappings - remote download directory associate to DOWNLOAD_URL                |
-| RADARR_LOCALPATH     |  /films/downloads/     | Remote Path Mappings - local download directory assosiate to DOWNLOAD_URL                 |
+| RADARR_LOCALPATH     |  /movies/downloads/    | Remote Path Mappings - local download directory assosiate to DOWNLOAD_URL                 |
 | DOWNLOAD_NAME        |  Transmission          | Download Client - Transmission name                                                       |
 | DOWNLOAD_URL         |  localhost             | Download Client - Transmission url                                                        |
 | DOWNLOAD_PORT        |  9091                  | Download Client - Transmission port                                                       |
