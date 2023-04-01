@@ -17,8 +17,8 @@ RADARR_DB = '/config/radarr.db'
 ###########################################################
 def set_downloadclients(database, name, url, port, username, password):
     # Create download clients in database
-    data = ("1", name, "Transmission", '{"host": "' + url + '", "port": "' + port
-            + '", "useSsl": "false", "urlBase": "/transmission/", "username": "' + username + '", "password": "' + password + '"}',
+    data = ("1", name, "Transmission", '{"host": "' + url + '", "port": ' + port
+            + ', "useSsl": "false", "urlBase": "/transmission/", "username": "' + username + '", "password": "' + password + '"}',
             "TransmissionSettings", "1", "1", "1")
     query = "INSERT INTO DownloadClients (Enable,Name,Implementation,Settings,ConfigContract,Priority," \
             "RemoveCompletedDownloads,RemoveFailedDownloads) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
@@ -69,7 +69,7 @@ def get_downloadclients(database, name):
 
 
 def update_downloadclients(database, name, url, port, username, password):
-    data = ('{"host": "' + url + '", "port": "' + port + '", "useSsl": "false", "urlBase": "/transmission/", "username": "'
+    data = ('{"host": "' + url + '", "port": ' + port + ', "useSsl": "false", "urlBase": "/transmission/", "username": "'
             + username + '", "password": "' + password + '"}', name)
     query = "UPDATE DownloadClients SET Settings = ? WHERE Name = ?"
 
