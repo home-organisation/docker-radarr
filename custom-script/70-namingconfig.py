@@ -16,17 +16,15 @@ RADARR_DB = '/config/radarr.db'
 ###########################################################
 def update_namingconfig(database, enable):
     if enable == "True":
-        rename = 1
+        query = "UPDATE NamingConfig SET RenameMovies = 1"
     else:
-        rename = 0
-    data = (rename,)
-    query = "UPDATE NamingConfig SET RenameMovies = ?"
+        query = "UPDATE NamingConfig SET RenameMovies = 0"
 
     connexion = sqlite3.connect(database)
     db = connexion.cursor()
 
     try:
-        db.execute(query, data)
+        db.execute(query)
         connexion.commit()
 
         db.close()
@@ -35,7 +33,7 @@ def update_namingconfig(database, enable):
         logging.error('SQLite error: %s' % (' '.join(er.args)))
         return None
     else:
-        return rename
+        return enable
 
 
 ###########################################################
