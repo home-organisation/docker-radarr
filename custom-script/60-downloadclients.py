@@ -17,7 +17,7 @@ RADARR_DB = '/config/radarr.db'
 ###########################################################
 def set_downloadclients(database, name, url, port, username, password):
     # Create download clients in database
-    data = ("1", name, "Transmission", '{"host": "' + url + '", "port": ' + port
+    data = ("1", name, "Transmission", '{"host": "' + url + '", "port": ' + str(port)
             + ', "useSsl": "false", "urlBase": "/transmission/", "username": "' + username + '", "password": "' + password + '"}',
             "TransmissionSettings", "1", "1", "1")
     query = "INSERT INTO DownloadClients (Enable,Name,Implementation,Settings,ConfigContract,Priority," \
@@ -69,7 +69,7 @@ def get_downloadclients(database, name):
 
 
 def update_downloadclients(database, name, url, port, username, password):
-    data = ('{"host": "' + url + '", "port": ' + port + ', "useSsl": "false", "urlBase": "/transmission/", "username": "'
+    data = ('{"host": "' + url + '", "port": ' + str(port) + ', "useSsl": "false", "urlBase": "/transmission/", "username": "'
             + username + '", "password": "' + password + '"}', name)
     query = "UPDATE DownloadClients SET Settings = ? WHERE Name = ?"
 
@@ -97,7 +97,7 @@ if __name__ == '__main__':
     DOWNLOAD_USER = os.environ.get('DOWNLOAD_USER')
     DOWNLOAD_PASSWORD = os.environ.get('DOWNLOAD_PASSWORD')
     DOWNLOAD_URL = os.environ.get('DOWNLOAD_URL')
-    DOWNLOAD_PORT = int(os.environ.get('DOWNLOAD_PORT'))
+    DOWNLOAD_PORT = os.environ.get('DOWNLOAD_PORT')
     if DOWNLOAD_USER is None or DOWNLOAD_PASSWORD is None or DOWNLOAD_NAME is None or DOWNLOAD_URL is None or DOWNLOAD_PORT is None:
         logging.warning("DOWNLOAD_NAME, DOWNLOAD_USER, DOWNLOAD_PASSWORD, DOWNLOAD_URL or DOWNLOAD_PORT with no value, nothing to do")
         sys.exit(0)
