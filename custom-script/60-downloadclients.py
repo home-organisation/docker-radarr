@@ -101,8 +101,10 @@ if __name__ == '__main__':
     DOWNLOAD_URL = os.environ.get('DOWNLOAD_URL')
     DOWNLOAD_PORT = os.environ.get('DOWNLOAD_PORT')
     DOWNLOAD_CATEGORY = os.environ.get('DOWNLOAD_FILMCATEGORY')
-    if DOWNLOAD_USER is None or DOWNLOAD_PASSWORD is None or DOWNLOAD_NAME is None or DOWNLOAD_URL is None or DOWNLOAD_PORT is None or DOWNLOAD_CATEGORY is None:
-        logging.warning("DOWNLOAD_NAME, DOWNLOAD_USER, DOWNLOAD_PASSWORD, DOWNLOAD_URL, DOWNLOAD_PORT or DOWNLOAD_FILMCATEGORY with no value, nothing to do")
+    if DOWNLOAD_CATEGORY is None:
+        DOWNLOAD_CATEGORY = ""
+    if DOWNLOAD_USER is None or DOWNLOAD_PASSWORD is None or DOWNLOAD_NAME is None or DOWNLOAD_URL is None or DOWNLOAD_PORT is None:
+        logging.warning("DOWNLOAD_NAME, DOWNLOAD_USER, DOWNLOAD_PASSWORD, DOWNLOAD_URL or DOWNLOAD_PORT with no value, nothing to do")
         sys.exit(0)
 
     logging.info("Set Download Client <%s> for downloader %s to application ..." % (DOWNLOAD_NAME, DOWNLOAD_URL))
