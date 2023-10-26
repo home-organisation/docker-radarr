@@ -112,7 +112,7 @@ if __name__ == '__main__':
     if CLIENT is None:
         sys.exit(1)
 
-    if CLIENT["username"] == "" and CLIENT["password"] == "" and CLIENT["port"] == "" and CLIENT["url"] == "" and CLIENT["category"]:
+    if CLIENT["username"] == "" and CLIENT["password"] == "" and CLIENT["port"] == "" and CLIENT["url"] == "" and CLIENT["category"] == "":
         CLIENT = set_downloadclients(RADARR_DB, DOWNLOAD_NAME, DOWNLOAD_URL, DOWNLOAD_PORT, DOWNLOAD_USER, DOWNLOAD_PASSWORD, DOWNLOAD_CATEGORY)
         if CLIENT is None:
             sys.exit(1)
