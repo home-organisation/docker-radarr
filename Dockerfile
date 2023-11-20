@@ -1,3 +1,4 @@
+#Last package update 18 November 2023
 FROM lscr.io/linuxserver/radarr:latest
 LABEL Maintainer="bizalu"
 
