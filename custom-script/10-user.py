@@ -65,7 +65,7 @@ def update_credential(database, username, password):
         return password
 
 
-def verify_hashed_password (database, username, password):
+def verify_hashed_password(database, username, password):
     data = (username,)
     query = "SELECT Password,Salt FROM Users WHERE Username = ?"
 
@@ -117,7 +117,7 @@ if __name__ == '__main__':
     if PASSWORD is None:
         sys.exit(1)
     elif PASSWORD == "empty":
-        logging.info("User %s doesnt exist, create ..." %RADARR_USER)
+        logging.info("User %s doesnt exist, create ..." % RADARR_USER)
         PASSWORD = set_credential(RADARR_DB, RADARR_USER, RADARR_PASSWORD)
         if PASSWORD is None:
             sys.exit(1)

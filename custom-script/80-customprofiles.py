@@ -1,10 +1,7 @@
 #!/usr/bin/python3
 import sys
-import os
 import sqlite3
 import logging
-
-query = "INSERT INTO CustomFormats (Name,Specifications,IncludeCustomFormatWhenRenaming) VALUES(?, ?, ?)"
 
 ###########################################################
 # SET STATIC CONFIG
