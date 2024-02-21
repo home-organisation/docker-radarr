@@ -36,7 +36,7 @@ def set_authenticationmethod(file, method):
 # INIT CONFIG
 ###########################################################
 if __name__ == '__main__':
-    RADARR_AUTHMETHOD = os.environ.get('RADARR_AUTHMETHOD')
+    RADARR_AUTHMETHOD = os.environ.get('RADARR_AUTHMETHOD') or "Forms"
     if RADARR_AUTHMETHOD is None or RADARR_AUTHMETHOD not in ["Forms", "Basic"] :
         logging.warning("RADARR_AUTHMETHOD <%s> is empty or has unaccepted value (Forms or Basic), nothing to do" % RADARR_AUTHMETHOD)
         sys.exit(0)

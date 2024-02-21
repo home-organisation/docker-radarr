@@ -14,8 +14,8 @@ The parameters below are taken from the original image [lscr.io/linuxserver/rada
 The extra parameters below come from this custom image :
 |  Parameters          | Examples values        | Functions                                                                                 |
 |----------------------|------------------------|-------------------------------------------------------------------------------------------|
-| RADARR_AUTHMETHOD    |  Forms                 | Authentication method for web authentication. Acceptable value is **Forms** or **Basic**  |
-| RADARR_USER          |  admin                 | Username for web authentication                                                           |
+| RADARR_AUTHMETHOD    |  Forms (default)       | Authentication method for web authentication. Acceptable value is **Forms** or **Basic**  |
+| RADARR_USER          |  admin (default)       | Username for web authentication                                                           |
 | RADARR_PASSWORD      |  ****                  | Password for web authentication                                                           |
 | RADARR_APIKEY        |  ****                  | Key for api authentication                                                                |
 | RADARR_ROOTPATH      |  /movies/tvshows       | Local media directory                                                                     |
