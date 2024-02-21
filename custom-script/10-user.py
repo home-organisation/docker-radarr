@@ -13,6 +13,7 @@ import base64
 logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
 RADARR_DB = '/config/radarr.db'
 
+
 ###########################################################
 # DEFINE FUNCTION
 ###########################################################
@@ -39,8 +40,9 @@ def set_credential(database, username, password):
     else:
         return password
 
+
 def update_credential(database, username, password):
-    #Update user password in database
+    # Update user password in database
     salt = base64.b64encode(os.urandom(16))
     hashpassword = get_hashed_password(password, salt)
 
@@ -61,6 +63,7 @@ def update_credential(database, username, password):
         return None
     else:
         return password
+
 
 def verify_hashed_password (database, username, password):
     data = (username,)
@@ -90,11 +93,13 @@ def verify_hashed_password (database, username, password):
     else:
         return "false"
 
+
 def get_hashed_password(password, salt):
     encryptsalt = base64.b64decode(salt)
     encryptpassword = base64.b64encode(hashlib.pbkdf2_hmac('sha512',password.encode('utf-8'), encryptsalt, 10000, 32))
 
     return encryptpassword
+
 
 ###########################################################
 # INIT CONFIG
