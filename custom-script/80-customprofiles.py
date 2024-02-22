@@ -19,7 +19,9 @@ def set_custom_format(database):
     db = connexion.cursor()
 
     try:
-        spec = '[{ "type": "ReleaseTitleSpecification", "body": { "order": 1, "implementationName": "Release Title", "infoLink": "https://wiki.servarr.com/radarr/settings#custom-formats-2", "value": "(((x|h)\\\\.?265)|(HEVC))", "name": "x265", "negate": false, "required": true }}]'
+        spec = ('[{ "type": "ReleaseTitleSpecification", "body": { "order": 1, "implementationName": "Release Title", '
+                '"infoLink": "https://wiki.servarr.com/radarr/settings#custom-formats-2", '
+                '"value": "(((x|h)\\\\.?265)|(HEVC))", "name": "x265", "negate": false, "required": true }}]')
         data = ("HEVC", spec, 0)
         query = "INSERT INTO CustomFormats (Name,Specifications,IncludeCustomFormatWhenRenaming) VALUES(?, ?, ?)"
 
@@ -33,7 +35,9 @@ def set_custom_format(database):
             return None
 
     try:
-        spec = '[{ "type": "ReleaseTitleSpecification", "body": { "order": 1, "implementationName": "Release Title", "infoLink": "https://wiki.servarr.com/radarr/settings#custom-formats-2", "value": "(x|h)\\\\.?264", "name": "x264", "negate": false, "required": true}}]'
+        spec = ('[{ "type": "ReleaseTitleSpecification", "body": { "order": 1, "implementationName": "Release Title", '
+                '"infoLink": "https://wiki.servarr.com/radarr/settings#custom-formats-2", '
+                '"value": "(x|h)\\\\.?264", "name": "x264", "negate": false, "required": true}}]')
         data = ("AVC", spec, 0)
         query = "INSERT INTO CustomFormats (Name,Specifications,IncludeCustomFormatWhenRenaming) VALUES(?, ?, ?)"
 
@@ -47,7 +51,12 @@ def set_custom_format(database):
             return None
 
     try:
-        spec = '[{ "type": "ReleaseTitleSpecification", "body": { "order": 1, "implementationName": "Release Title", "infoLink": "https://wiki.servarr.com/radarr/settings#custom-formats-2", "value": "\\\\b(VOST.*?FR(E|A)?)\\\\b", "name": "VOSTFR", "negate": false, "required": true}}, { "type": "ReleaseTitleSpecification", "body": { "order": 1, "implementationName": "Release Title", "infoLink": "https://wiki.servarr.com/radarr/settings#custom-formats-2", "value": "\\\\b(SUBFR(A|ENCH)?)\\\\b", "name": "SUBFRENCH", "negate": false, "required": true}}]'
+        spec = ('[{ "type": "ReleaseTitleSpecification", "body": { "order": 1, "implementationName": "Release Title", '
+                '"infoLink": "https://wiki.servarr.com/radarr/settings#custom-formats-2", '
+                '"value": "\\\\b(VOST.*?FR(E|A)?)\\\\b", "name": "VOSTFR", "negate": false, "required": true}}, '
+                '{ "type": "ReleaseTitleSpecification", "body": { "order": 1, "implementationName": "Release Title", '
+                '"infoLink": "https://wiki.servarr.com/radarr/settings#custom-formats-2", '
+                '"value": "\\\\b(SUBFR(A|ENCH)?)\\\\b", "name": "SUBFRENCH", "negate": false, "required": true}}]')
         data = ("VOSTFR", spec, 0)
         query = "INSERT INTO CustomFormats (Name,Specifications,IncludeCustomFormatWhenRenaming) VALUES(?, ?, ?)"
 
@@ -71,10 +80,15 @@ def set_custom_profiles(database):
     db = connexion.cursor()
 
     try:
-        items = '[{ "quality": 9, "items": [], "allowed": true }, { "id": 1002, "name": "WEB 1080p", "items": [{ "quality": 3, "items": [], "allowed": true }, { "quality": 15, "items": [], "allowed": true }], "allowed": true}, { "quality": 7, "items": [], "allowed": true }, { "quality": 30, "items": [], "allowed": true }]'
+        items = ('[{ "quality": 9, "items": [], "allowed": true }, '
+                 '{ "id": 1002, "name": "WEB 1080p", "items": [{ "quality": 3, "items": [], "allowed": true }, '
+                 '{ "quality": 15, "items": [], "allowed": true }], "allowed": true}, '
+                 '{ "quality": 7, "items": [], "allowed": true }, { "quality": 30, "items": [], "allowed": true }]')
         formatitems = '[{ "format": 1, "score": 1 }, { "format": 2, "score": 1 }, { "format": 3, "score": 0 }]'
         data = ("HD-1080p-FR", 30, items, 2, formatitems, 0, 1, 0)
-        query = "INSERT INTO QualityProfiles (Name,Cutoff,Items,Language,FormatItems,UpgradeAllowed,MinFormatScore,CutoffFormatScore) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
+        query = ("INSERT INTO QualityProfiles "
+                 "(Name,Cutoff,Items,Language,FormatItems,UpgradeAllowed,MinFormatScore,CutoffFormatScore) "
+                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?)")
 
         db.execute(query, data)
         connexion.commit()
@@ -86,10 +100,15 @@ def set_custom_profiles(database):
             return None
 
     try:
-        items = '[{ "quality": 9, "items": [], "allowed": true }, { "id": 1002, "name": "WEB 1080p", "items": [{ "quality": 3, "items": [], "allowed": true }, { "quality": 15, "items": [], "allowed": true }], "allowed": true}, { "quality": 7, "items": [], "allowed": true }, { "quality": 30, "items": [], "allowed": true }]'
+        items = ('[{ "quality": 9, "items": [], "allowed": true }, '
+                 '{ "id": 1002, "name": "WEB 1080p", "items": [{ "quality": 3, "items": [], "allowed": true }, '
+                 '{ "quality": 15, "items": [], "allowed": true }], "allowed": true}, '
+                 '{ "quality": 7, "items": [], "allowed": true }, { "quality": 30, "items": [], "allowed": true }]')
         formatitems = '[{ "format": 1, "score": 1 }, { "format": 2, "score": 1 }, { "format": 3, "score": 1 }]'
         data = ("HD-1080p-VO", 30, items, -2, formatitems, 0, 2, 0)
-        query = "INSERT INTO QualityProfiles (Name,Cutoff,Items,Language,FormatItems,UpgradeAllowed,MinFormatScore,CutoffFormatScore) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
+        query = ("INSERT INTO QualityProfiles "
+                 "(Name,Cutoff,Items,Language,FormatItems,UpgradeAllowed,MinFormatScore,CutoffFormatScore) "
+                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?)")
 
         db.execute(query, data)
         connexion.commit()

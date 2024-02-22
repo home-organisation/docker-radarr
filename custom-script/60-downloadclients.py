@@ -19,7 +19,7 @@ def set_downloadclients(database, name, url, port, username, password, category)
     # Create download clients in database
     data = ("1", name, "Transmission", '{"host": "' + url + '", "port": ' + str(port)
             + ', "useSsl": false, "urlBase": "/transmission/", "username": "' + username + '", \
-            "password": "' + password + '", "movieCategory": "' + category +'"}',
+            "password": "' + password + '", "movieCategory": "' + category + '"}',
             "TransmissionSettings", "1", "1", "1")
     query = "INSERT INTO DownloadClients (Enable,Name,Implementation,Settings,ConfigContract,Priority," \
             "RemoveCompletedDownloads,RemoveFailedDownloads) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
@@ -60,7 +60,7 @@ def get_downloadclients(database, name):
         logging.error('SQLite error: %s' % (' '.join(er.args)))
         return None
     except ValueError:
-        return {"username": "", "password": "", "url": "", "port": "", "category" : ""}
+        return {"username": "", "password": "", "url": "", "port": "", "category": ""}
     else:
         username = json.loads(rows[0][0])["username"]
         password = json.loads(rows[0][0])["password"]
@@ -71,8 +71,9 @@ def get_downloadclients(database, name):
 
 
 def update_downloadclients(database, name, url, port, username, password, category):
-    data = ('{"host": "' + url + '", "port": ' + str(port) + ', "useSsl": false, "urlBase": "/transmission/", "username": "'
-            + username + '", "password": "' + password + '", "movieCategory": "' + category +'"}', name)
+    data = (
+        '{"host": "' + url + '", "port": ' + str(port) + ', "useSsl": false, "urlBase": "/transmission/", "username": "'
+        + username + '", "password": "' + password + '", "movieCategory": "' + category + '"}', name)
     query = "UPDATE DownloadClients SET Settings = ? WHERE Name = ?"
 
     connexion = sqlite3.connect(database)
@@ -103,8 +104,10 @@ if __name__ == '__main__':
     DOWNLOAD_CATEGORY = os.environ.get('DOWNLOAD_FILMCATEGORY')
     if DOWNLOAD_CATEGORY is None:
         DOWNLOAD_CATEGORY = ""
-    if DOWNLOAD_USER is None or DOWNLOAD_PASSWORD is None or DOWNLOAD_NAME is None or DOWNLOAD_URL is None or DOWNLOAD_PORT is None:
-        logging.warning("DOWNLOAD_NAME, DOWNLOAD_USER, DOWNLOAD_PASSWORD, DOWNLOAD_URL or DOWNLOAD_PORT with no value, nothing to do")
+    if (DOWNLOAD_USER is None or DOWNLOAD_PASSWORD is None or DOWNLOAD_NAME is None or DOWNLOAD_URL is None
+            or DOWNLOAD_PORT is None):
+        logging.warning("DOWNLOAD_NAME, DOWNLOAD_USER, DOWNLOAD_PASSWORD, DOWNLOAD_URL or DOWNLOAD_PORT with no value"
+                        ", nothing to do")
         sys.exit(0)
 
     logging.info("Set Download Client <%s> for downloader %s to application ..." % (DOWNLOAD_NAME, DOWNLOAD_URL))
@@ -112,13 +115,19 @@ if __name__ == '__main__':
     if CLIENT is None:
         sys.exit(1)
 
-    if CLIENT["username"] == "" and CLIENT["password"] == "" and CLIENT["port"] == "" and CLIENT["url"] == "" and CLIENT["category"] == "":
-        CLIENT = set_downloadclients(RADARR_DB, DOWNLOAD_NAME, DOWNLOAD_URL, DOWNLOAD_PORT, DOWNLOAD_USER, DOWNLOAD_PASSWORD, DOWNLOAD_CATEGORY)
+    if CLIENT["username"] == "" and CLIENT["password"] == "" and CLIENT["port"] == "" and CLIENT["url"] == "" and \
+            CLIENT["category"] == "":
+        CLIENT = set_downloadclients(RADARR_DB, DOWNLOAD_NAME, DOWNLOAD_URL, DOWNLOAD_PORT, DOWNLOAD_USER,
+                                     DOWNLOAD_PASSWORD, DOWNLOAD_CATEGORY)
         if CLIENT is None:
             sys.exit(1)
 
-    if CLIENT["username"] != DOWNLOAD_USER or CLIENT["password"] != DOWNLOAD_PASSWORD or CLIENT["port"] != DOWNLOAD_PORT or CLIENT["url"] != DOWNLOAD_URL or CLIENT["category"] != DOWNLOAD_CATEGORY:
-        logging.info("Download Client %s for downloader %s already exist but with an other parameters, update ..." % (DOWNLOAD_NAME, DOWNLOAD_URL))
-        CLIENT = update_downloadclients(RADARR_DB, DOWNLOAD_NAME, DOWNLOAD_URL, DOWNLOAD_PORT, DOWNLOAD_USER, DOWNLOAD_PASSWORD, DOWNLOAD_CATEGORY)
+    if (CLIENT["username"] != DOWNLOAD_USER or CLIENT["password"] != DOWNLOAD_PASSWORD
+            or CLIENT["port"] != DOWNLOAD_PORT or CLIENT["url"] != DOWNLOAD_URL
+            or CLIENT["category"] != DOWNLOAD_CATEGORY):
+        logging.info("Download Client %s for downloader %s already exist but with an other parameters, update ..." % (
+            DOWNLOAD_NAME, DOWNLOAD_URL))
+        CLIENT = update_downloadclients(RADARR_DB, DOWNLOAD_NAME, DOWNLOAD_URL, DOWNLOAD_PORT, DOWNLOAD_USER,
+                                        DOWNLOAD_PASSWORD, DOWNLOAD_CATEGORY)
         if CLIENT is None:
             sys.exit(1)

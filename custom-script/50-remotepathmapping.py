@@ -90,7 +90,8 @@ if __name__ == '__main__':
         logging.warning("DOWNLOAD_URL, RADARR_REMOTEPATH or RADARR_LOCALPATH with no value, nothing to do")
         sys.exit(0)
 
-    logging.info("Set Remote Path Mapping for downloader %s with remote path %s and local path %s to application ..." % (DOWNLOAD_URL, RADARR_REMOTEPATH, RADARR_LOCALPATH))
+    logging.info("Set Remote Path Mapping for downloader %s with remote path %s and local path %s to application ..."
+                 % (DOWNLOAD_URL, RADARR_REMOTEPATH, RADARR_LOCALPATH))
     PATH = get_remotepath(RADARR_DB, DOWNLOAD_URL)
     if PATH is None:
         sys.exit(1)
@@ -101,7 +102,8 @@ if __name__ == '__main__':
             sys.exit(1)
 
     if PATH["remotepath"] != RADARR_REMOTEPATH or PATH["localpath"] != RADARR_LOCALPATH:
-        logging.info("Remote Path Mapping for downloader %s already exist but with an other path, update ..." % DOWNLOAD_URL)
+        logging.info("Remote Path Mapping for downloader %s already exist but with an other path, update ..."
+                     % DOWNLOAD_URL)
         PATH = update_remotepath(RADARR_DB, DOWNLOAD_URL, RADARR_LOCALPATH, RADARR_REMOTEPATH)
         if PATH is None:
             sys.exit(1)

@@ -96,7 +96,7 @@ def verify_hashed_password(database, username, password):
 
 def get_hashed_password(password, salt):
     encryptsalt = base64.b64decode(salt)
-    encryptpassword = base64.b64encode(hashlib.pbkdf2_hmac('sha512',password.encode('utf-8'), encryptsalt, 10000, 32))
+    encryptpassword = base64.b64encode(hashlib.pbkdf2_hmac('sha512', password.encode('utf-8'), encryptsalt, 10000, 32))
 
     return encryptpassword
 
