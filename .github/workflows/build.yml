@@ -1,24 +1,13 @@
-name: Build
+name: Build and merge
 
 on:
   push:
     branches: MEDIA-*
-  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Build and publish image to Quay
-        uses: docker/build-push-action@v1
-        with:
-          path: .
-          registry: quay.io
-          repository: bizalu/radarr
-          username: ${{ secrets.QUAY_ID }}
-          password: ${{ secrets.QUAY_PASSWD }}
-          tags: ${{ github.sha }}
-
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
