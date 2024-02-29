@@ -14,7 +14,7 @@ jobs:
         with:
           registry: quay.io
           username: ${{ secrets.QUAY_ID }}
-          password: ${{ secrets.QUAY_PW }}
+          password: ${{ secrets.QUAY_PASSWD }}
 
       - name: Building & Pushing Docker Image
         run: |
