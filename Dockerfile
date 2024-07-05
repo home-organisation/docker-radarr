@@ -12,6 +12,10 @@ RUN if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi
 COPY services/ /etc/s6-overlay/s6-rc.d/
 RUN find /etc/s6-overlay/s6-rc.d/ -name run -exec chmod u+x {} \;
 
+# Install custom init script
+COPY custom-script-init/ /custom-cont-init.d/
+RUN chmod u+x /custom-cont-init.d/*
+
 # Install custom post script
 COPY custom-script/ /etc/cont-post.d/
 RUN chmod u+x /etc/cont-post.d/*
