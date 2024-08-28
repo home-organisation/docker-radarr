@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  radarr:
+    pull_policy: build
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - "7878:7878"
+    environment:
+      - PASSWORD=admin
+      - APIKEY=a3fe3b50cbfb4f1c88933350584043c7
+      - DOWNLOAD_URL=transmission
+      - DOWNLOAD_PASSWORD=admin
+
+
