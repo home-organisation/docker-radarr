@@ -4,6 +4,8 @@ import database
 import base64
 import hashlib
 import uuid
+import pwd
+import grp
 
 logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s', datefmt='%d-%b-%y %H:%M:%S', level=logging.INFO)
 
@@ -136,6 +138,11 @@ def reconcile(desired: dict, current: dict):
             db.update_credential(username=desired["user"], password=password)
 
     # Reconcile root path parameter
+    if not os.path.exists(desired["rootpath"]):
+        logging.warning("rootpath directory %s doesn't exist, create the directory" % desired["rootpath"])
+        os.makedirs(desired["rootpath"])
+        os.chown(desired["rootpath"], pwd.getpwnam("abc").pw_uid, grp.getgrnam("abc").gr_gid)
+
     if current["rootpath"] != desired["rootpath"]:
         logging.info("Detection of drift for root path, reconcile the value")
         if current["rootpath"] is None:
